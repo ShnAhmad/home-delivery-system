@@ -225,34 +225,3 @@ img {
 
 /* End footer */
 
-.h-primary2 {
-    color:black;
-    text-align: center;
-    font-size: 1.5rem;
-    font-family: 'Bree Serif', serif;
-}
-
-.btn-primary {
-	font-size: 20px;
-}
-
-.centerstuff {
-	text-align: center;
-}
-
-
-.table-fixed thead {
-	width: 97%;
-  }
-  .table-fixed tbody {
-	height: 230px;
-	overflow-y: auto;
-	width: 100%;
-  }
-  .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
-	display: block;
-  }
-  .table-fixed tbody td, .table-fixed thead > tr> th {
-	float: left;
-	border-bottom-width: 0;
-  }
