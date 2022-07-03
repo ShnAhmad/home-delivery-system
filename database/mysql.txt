@@ -74,7 +74,7 @@ CREATE TABLE orders (
 order_id INT NOT NULL AUTO_INCREMENT,
 food_id INT NOT NULL,
 customer_id INT NOT NULL,
-driver_id INT NOT NULL,
+driver_id INT,
 quantity INT NOT NULL, 
 status varchar(50),
 PRIMARY KEY (order_id),
