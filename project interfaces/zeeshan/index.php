@@ -1,14 +1,16 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="index _style.css">
+  <?php include 'index _style.php' ?>
   <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
   <title>Food deliver System</title>
 </head>
-
 <body>
   <!-- Header -->
   <header id="header">
@@ -20,7 +22,7 @@
           <ul>
             <li><a href="#home" data-after="Home">Home</a></li>
             <li><a href="#services-container" data-after="Service">Services</a></li>
-            <li><a href="profile.html" data-after="Profile">Profile</a></li>
+            <li><a href="profile.php" data-after="Profile">Profile</a></li>
             <li><a href="login.html" data-after="Logout">Logout</a></li>
           </ul>
       </div>
@@ -39,7 +41,7 @@
     
   </section>
   <!-- End Hero Section  -->
-  
+   <h1>Hi <?php echo $_SESSION['first_name']; ?></h1>
          <!-- Service -->
          <section id="services-container">
           <h1 class="h-primary center">Our Services</h1>
@@ -75,30 +77,20 @@
       </section>
       <!-- order table -->
       <section id="order_table">
-     <form action="#" method="get" name="Registor_Form" id="form">
-        <table  >
-          <tr>
-            <th>Items</th>
-            <th>Quantity </th>
-        </tr>
-            <tr>
-                <td>Shawarma</td>
-                <td><input type="number" name="Squantity"> </td>
-            </tr>
-            <tr>
-                <td>Burger</td>
-                <td><input type="number" name="Bquantity" ></td>
-            </tr>
-            <tr>
-                <td>Pizza</td>
-                <td><input type="number" name="Pquantity" ></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Order" class="btn" ></td>
-            </tr>
-        </table>
+     <form action="" method="post" name="Registor_Form" id="form">
+     <select name="foods">
+            <option value="1">Burger</option>
+            <option value="2">Shawarma</option>
+            <option value="3" selected="selected">Pizza</option>
+          </select>
+          <input type="number" name="quantity" placeholder="Quantity">
+          <br>
+          <input type="Submit" name="Submit" value="Order" class="btn btn-primary">
       </form>
     </section>
+
+ 
+
   
     <!-- Footer -->
 
@@ -112,5 +104,46 @@
         </div>
         </div>
       </footer>
+      </body>
+    </html>
 
+      <?php
+ $server="localhost";
+$username="root";
+$password="";
+$db='ds';
+
+$con= mysqli_connect($server,$username,$password,$db);
+if($con)
+{
+    ?>
+    <script>
+        alert('connection successfull')
+    </script>
+    <?php
+}else{
+    echo "no connection";
+}
+if(isset($_POST['Submit'])) { 
+  $foodid=$_POST['foods'];
+  $quantity=$_POST['quantity'];
   
+}
+$insertquery = "insert into orders (order_id,food_id,customer_id,quantity,status) 
+values (DEFAULT,'$foodid'," . $_SESSION['customer_id'] . ",$quantity,'no')";
+     $res= mysqli_query($con,$insertquery); 
+     if($res) 
+     {
+        ?>
+        <script>
+         alert('data inserted successfully')
+        </script> 
+        <?php
+     } else{
+         ?>
+        <script>
+         alert('data not inserted')
+        </script> 
+        <?php
+     } 
+   ?>

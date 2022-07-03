@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,6 +48,8 @@
   <!-- End home Section  -->
   <!-- start driver  -->
   <br>
+
+<h1>Welcome back <?php echo $_SESSION['first_name'] ?></h1>
 
   <a href=""><input type="button" value="View Assigned Orders"></a>
 

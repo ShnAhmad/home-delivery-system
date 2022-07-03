@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index _style.css">
+    <?php include 'index _style.php' ?>
     <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
     <title>Food deliver System</title>
 </head>
@@ -18,7 +20,7 @@
             </div>
             <div class="nav-list">
                 <ul>
-                    <li><a href="index.html" data-after="Home">Home</a></li>
+                    <li><a href="index.php" data-after="Home">Home</a></li>
                     <li><a href="#services-container" data-after="Service">Services</a></li>
                     <li><a href="#projects" data-after="Profile">Profile</a></li>
                     <li><a href="login.html" data-after="Logout">Logout</a></li>
