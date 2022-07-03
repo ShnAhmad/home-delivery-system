@@ -1,6 +1,7 @@
-<?php
+<?php 
 session_start();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -72,18 +73,16 @@ if(isset($_POST["submit"])) {
     die("Connection failed: " . $conn->connect_error);
   }
   //
-  $sql = "SELECT * FROM `orders`where  `driver_id`= " . $_SESSION['driver_id'] . "and `status`='no' ";
+  $sql = "SELECT * FROM `orders`where  `driver_id`= " . $_SESSION['driver_id'] . " and `status`='no' ";
   $result = $conn->query($sql);
   print '<table class="table table-borderless">';
   print"<tr><td>order_id</td><td>food_id</td><td>customer_id</td><td>driver_id</td><td>quantity</td><td>status</td><td></td></tr>";
-  if ($result->num_rows > 0) {
+
     // output data of each row
     while($row = $result->fetch_assoc()) {
       echo "<tr><td>" . $row["order_id"]. "<t/d><td>" . $row["food_id"]. "</td><td>" . $row["customer_id"]. "</td><td>" . $row["driver_id"]. "</td><td>". $row["quantity"]."</td><td>". $row["status"]."</td><td><a href='status.php?order_id=" . $row['order_id'] . "' class='btn btn-danger'>Delivered</a></td></tr><br>";
     }
-  } else {
-    echo "0 results";
-  }print "</table>";
+print "</table>";
   $conn->close();
 
 }

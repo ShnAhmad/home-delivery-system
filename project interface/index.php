@@ -101,6 +101,8 @@ echo $sql_internal;
   
      echo "<script>alert('user found');</script>";
 
+     $row = mysqli_fetch_assoc($result);
+
      $sql_internal = "SELECT driver_id FROM drivers WHERE user_id = " . $row['user_id'] . ";";
      $result_internal = mysqli_query($conn, $sql_internal);
      $row_internal = mysqli_fetch_assoc($result_internal);
