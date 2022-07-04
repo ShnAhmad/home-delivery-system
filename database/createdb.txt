@@ -93,3 +93,10 @@ PRIMARY KEY (review_id),
 FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
 FOREIGN KEY (food_id) REFERENCES foods(food_id)
 );
+
+
+SELECT u.first_name, c.customer_id, o.order_id, a.city FROM orders o JOIN customers c USING (customer_id) JOIN users u USING (user_id) JOIN addresses a USING (address_id);
+
+SELECT u.first_name, c.customer_id, o.order_id, a.city, a.street, o.status FROM orders o JOIN customers c USING (customer_id) JOIN users u USING (user_id) JOIN addresses a USING (address_id);SELECT u.first_name, c.customer_id, o.order_id, a.city, a.street, o.status FROM orders o JOIN customers c USING (customer_id) JOIN users u USING (user_id) JOIN addresses a USING (address_id) WHERE o.driver_id_id=1 AND o.status= 'no';
+
+SELECT u.first_name, c.customer_id, o.order_id, a.city, a.street, o.status FROM orders o JOIN customers c USING (customer_id) JOIN users u USING (user_id) JOIN addresses a USING (address_id) WHERE o.driver_id_id=1 AND o.status= 'no';
