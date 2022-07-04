@@ -151,13 +151,18 @@ img {
 .center{
     text-align: center;
 }
-/* table */
-table{
-    border: 2px solid brown;
-	border-radius: 12px;
-	padding: 10px;
-    
+/* order */
+#selct
+{
+	width= 50px;
+	height= 50px;
+
 }
+.sq{
+	margin-top:20px;
+
+}
+
 .btn{
     padding: 6px 20px;
     border: 2px solid white;
@@ -168,12 +173,15 @@ table{
     border-radius: 10px;
     cursor:pointer;
 }
-#order_table{
+#order{
 	display: flex;
 	justify-content: center;
+	border: 2px solid brown;
 	border-radius: 2px;
 	padding: 3px;
-	margin: 10px;
+	margin-top:20px;
+	margin-bottom:20px;
+
 }
 
 /* Footer */

@@ -41,7 +41,7 @@ session_start();
     
   </section>
   <!-- End Hero Section  -->
-   <h1>Hi <?php echo $_SESSION['first_name']; ?></h1>
+   <h1 class="h-primary center">Welcome <?php echo $_SESSION['first_name']; ?></h1>
          <!-- Service -->
          <section id="services-container">
           <h1 class="h-primary center">Our Services</h1>
@@ -76,8 +76,9 @@ session_start();
           </div>
       </section>
       <!-- order table -->
-      <section id="order_table">
+      <section id="order">
      <form action="" method="post" name="Registor_Form" id="form">
+     <div class="sq">
      <select name="foods">
             <option value="1">Burger</option>
             <option value="2">Shawarma</option>
@@ -85,6 +86,7 @@ session_start();
           </select>
           <input type="number" name="quantity" placeholder="Quantity">
           <br>
+          </div>
           <input type="Submit" name="Submit" value="Order" class="btn btn-primary">
       </form>
     </section>
@@ -108,22 +110,9 @@ session_start();
     </html>
 
       <?php
- $server="localhost";
-$username="root";
-$password="";
-$db='ds';
+ 
+include 'connection.php';
 
-$con= mysqli_connect($server,$username,$password,$db);
-if($con)
-{
-    ?>
-    <script>
-        alert('connection successfull')
-    </script>
-    <?php
-}else{
-    echo "no connection";
-}
 if(isset($_POST['Submit'])) { 
   $foodid=$_POST['foods'];
   $quantity=$_POST['quantity'];
@@ -136,14 +125,9 @@ values (DEFAULT,'$foodid'," . $_SESSION['customer_id'] . ",$quantity,'no')";
      {
         ?>
         <script>
-         alert('data inserted successfully')
-        </script> 
-        <?php
-     } else{
-         ?>
-        <script>
-         alert('data not inserted')
+         alert('Your Order has been placed Successfully')
         </script> 
         <?php
      } 
+     
    ?>

@@ -1,5 +1,7 @@
 
-
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include 'index _style.php' ?>
     <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="profile.css">
     <title>Food deliver System</title>
 </head>
 
@@ -40,31 +43,52 @@
             quae ducimus non nisi!</p>
 
     </section>
+    <br><br><br>
     <!-- End home Section  -->
-    <h2>Update Your Profile</h2>
-    <table>
-        <tr>
-            <td> <label for="username">Name</label></td>
-            <td>
-                <input type="text" placeholder="Name" name="username">
-            </td>
-        </tr>
-        <tr>
-            <td><label for="username">Email</label></td>
-            <td><input type="text" placeholder="Email " name="email"></td>
-        </tr>
-<tr>
-    <td><label for="password">Password</label> </td>
-    <td> <input type="password" placeholder="Password" name="password"></td>
-</tr>
-<tr>
-    <td><button type="button" class="btn btn-primary"><a href="index.html">Update</a></button>
-    </td>
-</tr>
+    
 
-    </table>
+<?php
+include 'connection.php';
+$selectquery="SELECT   `first_name`, `last_name`,`email`, `password` FROM `users` WHERE `user_id`=" . $_SESSION['customer_id'] . "";
+$query= mysqli_query($con,$selectquery) ; 
+$num=mysqli_num_rows($query);
 
-
+while($res=mysqli_fetch_array($query))
+{
+?>
+     <div class="container">
+    <div class="title">Update Your Profile</div>
+    <div class="content">
+      <form action="" method="post">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">First name</span>
+            <input type="text" name="first_name" value="<?php echo $res ['first_name']; ?> " required>
+          </div>
+          <div class="input-box">
+            <span class="details">last name</span>
+            <input type="text" name="last_name" value="<?php echo $res ['last_name']; ?>"  required>
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" name="email" value="<?php echo $res ['email']; ?> " required>
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="password" name="password" name="password" value="<?php echo $res ['password']; ?> " required>
+          </div>
+        </div>   
+        <div class="button">
+          <input type="Submit" name="Submit" value="Update">
+        </div>
+      </form>
+    </div>
+  </div>
+    
+    <?php
+}
+?>
+<br><br><br>
     <!-- Footer -->
 
     <footer id="footer">
@@ -77,3 +101,37 @@
             </div>
         </div>
     </footer>
+   
+</body>
+</html>
+
+
+<?php
+if(isset($_POST['Submit'])) { 
+    $first_name=$_POST['first_name'];
+    $last_name=$_POST['last_name'];
+    $email=$_POST['email'];
+    $password=$_POST['password'];
+
+    $updatequery = "UPDATE users SET first_name='$first_name', last_name='$last_name', email='$email', password='$password' WHERE `user_id`=" . $_SESSION['customer_id'] . "";
+    $ress= mysqli_query($con,$updatequery); 
+    if($ress) 
+    {
+            echo "Record updated successfully";
+          } else {
+            echo "Error updating record: " . mysqli_error($con);
+          }
+          
+          mysqli_close($con);
+ 
+  }
+
+  ?>
+
+
+
+
+
+
+
+
