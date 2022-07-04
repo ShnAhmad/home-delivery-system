@@ -30,15 +30,25 @@ session_start();
         <ul>
           <li><a href="#home" data-after="Home">Home</a></li>
           <li><a href="#projects" data-after="Profile">Profile</a></li>
-          <li><a href="login.html" data-after="Logout">Logout</a></li>
+          <li><form action="" method="POST">
+                        <input type="hidden" value="t">
+                        <input type="submit" name="logout" value="Logout">
+                        </form>
+                  </li>
         </ul>
       </div>
     </div>
   </header>
   <!-- End Header -->
-
   <!-- home Section  -->
   <section id="home">
+
+  <?php
+ if(isset($_POST['logout'])) {
+  session_destroy();
+ echo "<script>window.location = '../index.php'</script>";
+}
+?>
 
     <h1 class="heading">Welcome to Food For You</h1>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
