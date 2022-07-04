@@ -31,10 +31,11 @@
         <input type="text" placeholder="Email " name="email">
         <label for="password">Password</label>
         <input type="password" placeholder="Password" name="password">
-        <label for="password">User type</label>
-        <input type="text" placeholder="User type" name="usertype">
+        <!-- <label for="password">User type</label>
+        <input type="text" placeholder="User type" name="usertype"> -->
         <input type="submit" value="Register" class="btn btn-primary" name="submit">
-
+        <div style="display: flex; justify-content: center; align-items: center;">
+        <a style="margin-top: 25px;" href="index.php" class="btn btn-danger">Login</a>
     </form>
 
 
@@ -52,7 +53,7 @@
         $last_name = $_POST['last_name'];
         $user_password = $_POST['password'];
         $email = $_POST['email'];
-        $user_type = $_POST['usertype'];
+      //  $user_type = $_POST['usertype'];
         
         $conn = mysqli_connect($servername, $username, $password, $database);
 
@@ -61,20 +62,18 @@
             die("Connection failed: " . mysqli_connect_error()); 
         }
 
-
-if($user_type == 'customer') {        
+      
 $sql = sprintf("INSERT INTO users (user_id, user_type, first_name, last_name, email, password) VALUES (DEFAULT, 'customer', '%s', '%s', '%s', '%s');", $first_name, $last_name, $email, $user_password);
 $sql .= "INSERT INTO customers (customer_id, user_id, totalSpent) VALUES (DEFAULT, last_insert_id(), 0);";
 
-echo $sql;
 mysqli_multi_query($conn, $sql);
 
-} else if ($user_type == 'driver') {
-    $sql = sprintf("INSERT INTO users (user_id, user_type, first_name, last_name, email, password) VALUES (DEFAULT, 'driver', '%s', '%s', '%s', '%s');
-    INSERT INTO drivers (driver_id, user_id) VALUES (DEFAULT, last_insert_id());", $first_name, $last_name, $email, $user_password);
-    mysqli_query($conn, $sql);
-}
-     
+// } else if ($user_type == 'driver') {
+//     $sql = sprintf("INSERT INTO users (user_id, user_type, first_name, last_name, email, password) VALUES (DEFAULT, 'driver', '%s', '%s', '%s', '%s');
+//     INSERT INTO drivers (driver_id, user_id) VALUES (DEFAULT, last_insert_id());", $first_name, $last_name, $email, $user_password);
+//     mysqli_query($conn, $sql);
+// }
+    echo "<script>alert('Registered');</script>"; 
     }
     ?>
 </body>

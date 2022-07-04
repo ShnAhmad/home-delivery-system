@@ -34,6 +34,9 @@ session_start();
         <label for="usertype">User Type</label>
         <input type="text" placeholder="driver or customer" name="usertype">
         <input type="submit" value="Login" class="btn btn-primary" name="submit">
+        <div style="display: flex; justify-content: center; align-items: center;">
+        <a style="margin-top: 25px;" href="register.php" class="btn btn-danger">Register</a>
+        </div>
         </div>
     </form>
 </body>

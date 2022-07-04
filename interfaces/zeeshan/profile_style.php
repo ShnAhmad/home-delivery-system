@@ -1,4 +1,4 @@
-
+<style>
 .container{
     margin-left: 250px;
     max-width: 700px;
@@ -130,4 +130,5 @@
       flex-direction: column;
     }
   }
+  </style>
   

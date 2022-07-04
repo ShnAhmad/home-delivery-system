@@ -7,7 +7,7 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?php include 'index _style.php' ?>
+  <?php include 'in_style.php' ?>
   <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
   <title>Food deliver System</title>
 </head>
@@ -22,15 +22,24 @@ session_start();
           <ul>
             <li><a href="#home" data-after="Home">Home</a></li>
             <li><a href="#services-container" data-after="Service">Services</a></li>
-            <li><a href="profile.php" data-after="Profile">Profile</a></li>
-            <li><a href="login.html" data-after="Logout">Logout</a></li>
+            <li><a href="pr.php" data-after="Profile">Profile</a></li>
+            <li><form action="" method="POST">
+              <input type="hidden" value="t">
+              <input type="submit" name="logout" value="Logout">
+                </form>
+            </li>
           </ul>
       </div>
     </div>
   </header>
   <!-- End Header -->
 
-
+<?php 
+if(isset($_POST['logout'])) {
+  session_destroy();
+ echo "<script>window.location = '../index.php'</script>";
+}
+?>
   <!-- home Section  -->
   <section id="home">
    
@@ -84,7 +93,7 @@ session_start();
             <option value="2">Shawarma</option>
             <option value="3" selected="selected">Pizza</option>
           </select>
-          <input type="number" name="quantity" placeholder="Quantity">
+          <input type="number" name="quantity" min='1' placeholder="Quantity">
           <br>
           </div>
           <input type="Submit" name="Submit" value="Order" class="btn btn-primary">
@@ -117,7 +126,7 @@ if(isset($_POST['Submit'])) {
   $foodid=$_POST['foods'];
   $quantity=$_POST['quantity'];
   
-}
+
 $insertquery = "insert into orders (order_id,food_id,customer_id,quantity,status) 
 values (DEFAULT,'$foodid'," . $_SESSION['customer_id'] . ",$quantity,'no')";
      $res= mysqli_query($con,$insertquery); 
@@ -129,5 +138,6 @@ values (DEFAULT,'$foodid'," . $_SESSION['customer_id'] . ",$quantity,'no')";
         </script> 
         <?php
      } 
+    }
      
    ?>
