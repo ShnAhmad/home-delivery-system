@@ -20,4 +20,7 @@ $sql = "UPDATE orders SET driver_id = " . $_SESSION['driver_id'] . " WHERE order
 
 $conn->query($sql);
 $conn->close();
+
+echo "<script>window.location.href = 'driver.php'; </script>"
+
 ?>

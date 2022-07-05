@@ -60,7 +60,7 @@ session_start();
   <!-- start driver  -->
   <br>
 
-  <h1>Hi <?php echo $_SESSION['driver_id'] ?></h1>
+  <h1>Hi <?php echo $_SESSION['first_name'] ?></h1>
 
 <form action="" method="POST">
   <input type="submit" value="view yours assigned values" name="submit" class="btn btn-primary">

@@ -21,18 +21,25 @@ session_start();
 </head>
 
 <body>
+<h1 style="text-align: center; color: white;">Food Delivery System</h1>
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form action="" method="POST">
+    <form style="margin-top: 50px;" action="" method="POST">
+
         <h3>Login</h3>
-        <label for="username">Username</label>
+        <label for="username">Email</label>
         <input type="text" placeholder="Email" id="username" name="email">
         <label for="password">Password</label>
         <input type="password" placeholder="Password" id="password" name="password">
         <label for="usertype">User Type</label>
-        <input type="text" placeholder="driver or customer" name="usertype">
+        <select style="color: black;" name="usertype">
+            <option style="color: black; font-weight: bold;" value="driver">driver</option>
+            <option style="color: black; font-weight: bold;" value="customer" selected>customer</option>
+            <option style="color: black; font-weight: bold;" value="admin">admin</option>
+        </select>
+      
         <input type="submit" value="Login" class="btn btn-primary" name="submit">
         <div style="display: flex; justify-content: center; align-items: center;">
         <a style="margin-top: 25px;" href="register.php" class="btn btn-danger">Register</a>
@@ -44,8 +51,7 @@ session_start();
 
 <?php
 
-$sql_internal = "SELECT customer_id FROM customers WHERE user_id = " . 1 . ";";
-echo $sql_internal;
+
  if (isset($_POST["submit"])) {
 
     $email = $_POST['email'];
@@ -64,11 +70,11 @@ echo $sql_internal;
  if($user_type == 'customer') {
 
    $sql = sprintf("SELECT * FROM users WHERE user_type = 'customer' AND email = '%s' AND password = '%s';", $email, $user_password);
-   echo $sql;
+
    $result = mysqli_query($conn, $sql);
 
    if(mysqli_num_Rows($result) > 0) {
-    echo "<script>alert('user found');</script>";
+    echo "<script>alert('Logged In');</script>";
 
 
     $row = mysqli_fetch_assoc($result);
@@ -90,19 +96,19 @@ echo $sql_internal;
      header("Location: zeeshan/index.php");
 
    } else {
-    echo "<script>alert('not found');</script>";
+    echo "<script>alert('Incorrect username or password');</script>";
    }
    
 } else if ($user_type == 'driver') {
 
 
     $sql = sprintf("SELECT * FROM users WHERE user_type = 'driver' AND email = '%s' AND password = '%s';", $email, $user_password);
-    echo $sql;
+
     $result = mysqli_query($conn, $sql);
  
     if(mysqli_num_Rows($result) > 0) {
   
-     echo "<script>alert('user found');</script>";
+     echo "<script>alert('Logged In');</script>";
 
      $row = mysqli_fetch_assoc($result);
 
@@ -121,10 +127,24 @@ echo $sql_internal;
      header("Location: sadat/driver.php");
 
     } else {
-     echo "<script>alert('not found');</script>";
+     echo "<script>alert('Incorrect username or password');</script>";
     }
 
 
+} else if ($user_type == 'admin') {
+    $sql = sprintf("SELECT * FROM users WHERE user_type = 'admin' AND email = '%s' AND password = '%s';", $email, $user_password);
+
+    $result = mysqli_query($conn, $sql);
+ 
+    if(mysqli_num_Rows($result) > 0) {
+  
+     echo "<script>alert('Logged In');</script>";
+
+     header("Location: hamad/admin.php");
+
+    } else {
+     echo "<script>alert('Incorrect password or email');</script>";
+    }
 }
 }
 ?>

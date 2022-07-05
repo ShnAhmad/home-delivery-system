@@ -16,11 +16,12 @@
 </head>
 
 <body>
+<h1 style="text-align: center; color: white;">Food Delivery System</h1>
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form action="" method="POST">
+    <form style="margin-top: 50px;" action="" method="POST">
         <h3>Register</h3>
 
         <label for="firstName">First name</label>

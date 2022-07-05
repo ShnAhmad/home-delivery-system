@@ -30,7 +30,17 @@
           <li><a href="#home" data-after="Home">Home</a></li>
           <li><a href="#services-container" data-after="Service">Services</a></li>
           <li><a href="#projects" data-after="Profile">Profile</a></li>
-          <li><a href="login.html" data-after="Logout">Logout</a></li>
+          <li><form action="" method="POST">
+              <input type="hidden" value="t">
+              <input type="submit" name="logout" value="Logout">
+                </form>
+            </li>
+<?php 
+if(isset($_POST['logout'])) {
+  session_destroy();
+ echo "<script>window.location = '../index.php'</script>";
+}
+?>
         </ul>
     </div>
   </div>
@@ -50,10 +60,13 @@
 <div class="h-primary2">
   <h1>Admin Page</h1>
 </div>
+
 <form action=""method='post'>
-<input type="submit"id name="Customer" value="Customer"class="btn btn-primary">
+<input type="submit"id name="Customer" value="Customer"class="btn btn-primary"><br>
 <input type="submit"id name="Driver" value="Driver"class="btn btn-primary"> 
 </form>
+<button class='btn btn-primary'><a href='addDriver.php'
+   class='text-light'>Add driver</a></button>;
 <?php
 
 if(isset($_POST["Customer"]))
@@ -61,7 +74,7 @@ if(isset($_POST["Customer"]))
 include "Connection.php";
 
 
-$sql = "SELECT user_id,user_type,first_name,last_name,email,password,address_id FROM users where user_type='Customer'";
+$sql = "SELECT user_id, user_type,first_name,last_name,email,password,address_id FROM users where user_type='Customer'";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
@@ -89,7 +102,7 @@ if (mysqli_num_rows($result) > 0) {
     <td>".$pass."</td>
     <td>".$address."</td>
    <td>
-   <button class='btn btn-danger'><a href='delete.php?delete=".$id."'
+   <button class='btn btn-danger'><a href='delete.php?delete=".$id."&user_id=".$row['user_id']."'
    class='text-light'>Delete</a></button>
    </td>
    </tr>";
@@ -130,6 +143,11 @@ if (mysqli_num_rows($result) > 0) {
     $name=$row['first_name'].$row['last_name'];
     $type=$row['user_type'];
     $email=$row['email'];
+
+    $sql_internal = "SELECT driver_id FROM drivers WHERE user_id = " . $row['user_id'];
+    $interal_result = mysqli_query($conn, $sql_internal);
+    $row_internal = mysqli_fetch_assoc($interal_result);
+    $driver_id = $row_internal['driver_id'];
     
     print "<tr>
     <td>".$id."</td>
@@ -138,7 +156,7 @@ if (mysqli_num_rows($result) > 0) {
     
     <td> ".$email."</td>
    <td>
-   <button class='btn btn-danger'><a href='delete.php?delete=".$id."'
+   <button class='btn btn-danger'><a href='delete.php?delete=".$id."&user_id=".$driver_id."'
    class='text-light'>Delete</a></button>
    </td>
    </tr>";

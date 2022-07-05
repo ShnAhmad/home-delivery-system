@@ -48,7 +48,17 @@ td{
           <li><a href="#home" data-after="Home">Home</a></li>
           <li><a href="#services-container" data-after="Service">Services</a></li>
           <li><a href="#projects" data-after="Profile">Profile</a></li>
-          <li><a href="login.html" data-after="Logout">Logout</a></li>
+          <li><form action="" method="POST">
+              <input type="hidden" value="t">
+              <input type="submit" name="logout" value="Logout">
+                </form>
+            </li>
+<?php 
+if(isset($_POST['logout'])) {
+  session_destroy();
+ echo "<script>window.location = '../index.php'</script>";
+}
+?>
         </ul>
     </div>
   </div>
@@ -100,13 +110,16 @@ td{
 </html>
 <?php
 if (isset($_POST["submit"])) {
-    $name=$_POST['first_name'].$_POST['last_name'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $user_password = $_POST['password'];
     $email=$_POST['email'];
          include "Connection.php";
-        $sql= "INSERT INTO users(user_id, user_type, first_name, last_name, username,
-         email, password,dateRegistered, address_id) VALUES (DEFAULT,'Driver','$_POST[first_name]',
-        '$_POST[last_name]','$name','$email','$_POST[password]','11',DEFAULT)";
-   $result=mysqli_query($conn,$sql);
+         $sql = sprintf("INSERT INTO users (user_id, user_type, first_name, last_name, email, password) VALUES (DEFAULT, 'driver', '%s', '%s', '%s', '%s');", $first_name, $last_name, $email, $user_password);
+         $sql .= "INSERT INTO drivers (driver_id, user_id) VALUES (DEFAULT, last_insert_id());";
+         echo $sql;
+         $result = mysqli_multi_query($conn, $sql);
         if($result){
             header("Location:admin.php");
         }
