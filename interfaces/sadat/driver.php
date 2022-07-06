@@ -30,25 +30,15 @@ session_start();
         <ul>
           <li><a href="#home" data-after="Home">Home</a></li>
           <li><a href="#projects" data-after="Profile">Profile</a></li>
-          <li><form action="" method="POST">
-                        <input type="hidden" value="t">
-                        <input type="submit" name="logout" value="Logout">
-                        </form>
-                  </li>
+          <li><a href="login.html" data-after="Logout">Logout</a></li>
         </ul>
       </div>
     </div>
   </header>
   <!-- End Header -->
+
   <!-- home Section  -->
   <section id="home">
-
-  <?php
- if(isset($_POST['logout'])) {
-  session_destroy();
- echo "<script>window.location = '../index.php'</script>";
-}
-?>
 
     <h1 class="heading">Welcome to Food For You</h1>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -60,7 +50,7 @@ session_start();
   <!-- start driver  -->
   <br>
 
-  <h1>Hi <?php echo $_SESSION['first_name'] ?></h1>
+  <h1>Hi <?php echo $_SESSION['driver_id'] ?></h1>
 
 <form action="" method="POST">
   <input type="submit" value="view yours assigned values" name="submit" class="btn btn-primary">
@@ -83,14 +73,25 @@ if(isset($_POST["submit"])) {
     die("Connection failed: " . $conn->connect_error);
   }
   //
-  $sql = "SELECT * FROM `orders`where  `driver_id`= " . $_SESSION['driver_id'] . " and `status`='no' ";
+  $sql = "SELECT u.first_name, c.customer_id, o.order_id, a.city, a.street, o.status FROM orders o JOIN customers c USING (customer_id) JOIN users u USING (user_id) JOIN addresses a USING (address_id) WHERE o.driver_id= " . $_SESSION['driver_id'] ." AND o.status='no';";
   $result = $conn->query($sql);
   print '<table class="table table-borderless">';
-  print"<tr><td>order_id</td><td>food_id</td><td>customer_id</td><td>driver_id</td><td>quantity</td><td>status</td><td></td></tr>";
+  print"<tr><th>first_name</th>
+  <th>customer_id</th>
+  <th>order_id</th>
+  <th>city</th>
+  <th>street</th>
+  <th>status</th><td></td></tr>";
 
     // output data of each row
     while($row = $result->fetch_assoc()) {
-      echo "<tr><td>" . $row["order_id"]. "<t/d><td>" . $row["food_id"]. "</td><td>" . $row["customer_id"]. "</td><td>" . $row["driver_id"]. "</td><td>". $row["quantity"]."</td><td>". $row["status"]."</td><td><a href='status.php?order_id=" . $row['order_id'] . "' class='btn btn-danger'>Delivered</a></td></tr><br>";
+      echo "<tr><td>" . $row["first_name"]. "<t/d>
+      <td>" . $row["customer_id"]. "</td>
+      <td>" . $row["order_id"]. "</td>
+      <td>" . $row["city"]. "</td>
+      <td>". $row["street"]."</td>
+      <td>". $row["status"]."</td>
+      <td><a href='status.php?order_id=" . $row['order_id'] . "' class='btn btn-danger'>Delivered</a></td></tr><br>";
     }
 print "</table>";
   $conn->close();
@@ -110,19 +111,24 @@ if(isset($_POST["submitt"])) {
     die("Connection failed: " . $conn->connect_error);
   }
   //
-  $sql = "SELECT * FROM `orders` where  `status`='no' and `driver_id` IS null ";
+  $sql = "SELECT u.first_name, c.customer_id, o.order_id, a.city, a.street, o.status FROM orders o JOIN customers c USING (customer_id) JOIN users u USING (user_id) JOIN addresses a USING (address_id) WHERE o.driver_id is null  AND o.status='no';";
   $result = $conn->query($sql);
   print '<table class="table table-borderless">';
-  print"<tr><td>order_id</td><td>food_id</td><td>customer_id</td><td>driver_id</td><td>quantity</td><td>status</td><td></td></tr>";
+  print"<tr><th>first_name</th>
+  <th>customer_id</th>
+  <th>order_id</th>
+  <th>city</th>
+  <th>street</th>
+  <th>status</th><td></td></tr>";
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-      echo "<tr><td>" . $row["order_id"]. "<t/d>
-      <td>" . $row["food_id"]. "</td>
+      echo "<tr><td>" . $row["first_name"]. "<t/d>
       <td>" . $row["customer_id"]. "</td>
-      <td>" . $row["driver_id"]. "</td>
-      <td>". $row["quantity"]."</td>
-      <td>". $row["driver_id"]."</td>
+      <td>" . $row["order_id"]. "</td>
+      <td>" . $row["city"]. "</td>
+      <td>". $row["street"]."</td>
+      <td>". $row["status"]."</td>
       <td><a href='pickorder.php?order_id=" . $row['order_id'] . "' class='btn btn-danger'>pick order from the list</a></td>
       </tr><br>";
     }

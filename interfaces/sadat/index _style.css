@@ -151,12 +151,6 @@ img {
     text-align: center;
 }
 /* table */
-table{
-    border: 2px solid brown;
-	border-radius: 12px;
-	padding: 10px;
-    
-}
 .btn{
     padding: 6px 20px;
     border: 2px solid white;

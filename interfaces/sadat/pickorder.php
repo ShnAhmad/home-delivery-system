@@ -16,11 +16,8 @@ if ($conn->connect_error) {
 }
 
 $sql = "UPDATE orders SET driver_id = " . $_SESSION['driver_id'] . " WHERE order_id = " . $_GET['order_id'] . ";";
-
-
 $conn->query($sql);
 $conn->close();
 
-echo "<script>window.location.href = 'driver.php'; </script>"
-
+header("Location: driver.php");
 ?>
