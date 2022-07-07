@@ -30,7 +30,7 @@ session_start();
         <ul>
           <li><a href="#home" data-after="Home">Home</a></li>
           <li><a href="#projects" data-after="Profile">Profile</a></li>
-          <li><a href="login.html" data-after="Logout">Logout</a></li>
+          <li><a href="index.html" data-after="Logout">Logout</a></li>
         </ul>
       </div>
     </div>
